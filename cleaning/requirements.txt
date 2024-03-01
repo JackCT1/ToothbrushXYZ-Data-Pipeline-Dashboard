@@ -1,6 +1,0 @@
-s3fs
-pyarrow
-pandas
-sqlalchemy
-psycopg2-binary
-python-dotenv
