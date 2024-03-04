@@ -1,6 +1,11 @@
-s3fs
-pyarrow
+dash
+dash_bootstrap_components
+matplotlib
 pandas
-sqlalchemy
+plotly
 psycopg2-binary
+pyarrow
 python-dotenv
+s3fs
+scipy
+sqlalchemy
