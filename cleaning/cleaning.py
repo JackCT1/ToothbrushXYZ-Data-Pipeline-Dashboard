@@ -35,3 +35,18 @@ def format_column_postcode(staging_df:pd.DataFrame) -> pd.DataFrame:
         staging_df['delivery_postcode'] = staging_df['delivery_postcode'].apply(Utility.format_postcode)
         staging_df['billing_postcode'] = staging_df['billing_postcode'].apply(Utility.format_postcode)
         return staging_df
+
+def remove_negative_age(staging_df:pd.DataFrame) -> pd.DataFrame:
+        """
+        Removes rows with negative ages from the dataframe.
+        """
+        staging_df = staging_df.query('customer_age > 0')
+        return staging_df
+
+def format_is_first(staging_df:pd.DataFrame) -> pd.DataFrame:
+        """
+        Check that is_first is either 0 or 1, if not those rows
+        will be removed.
+        """
+        staging_df = staging_df.query('is_first == 0 or is_first == 1')
+        return staging_df
