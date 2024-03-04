@@ -45,8 +45,37 @@ def remove_negative_age(staging_df:pd.DataFrame) -> pd.DataFrame:
 
 def format_is_first(staging_df:pd.DataFrame) -> pd.DataFrame:
         """
-        Check that is_first is either 0 or 1, if not those rows
-        will be removed.
+        Checks that is_first is either 0 or 1, if not then removes those rows.
         """
         staging_df = staging_df.query('is_first == 0 or is_first == 1')
+        return staging_df
+
+def get_positive_order_quantities(staging_df:pd.DataFrame) -> pd.DataFrame:
+        """
+        Returns the rows with positive order quantities.
+        """
+        staging_df = staging_df.query('order_quantity > 0')
+        return staging_df
+
+def change_columns_to_datetime(staging_df:pd.DataFrame) -> pd.DataFrame:
+        """
+        Change columns' datatype to datetime.
+        """
+        staging_df['delivery_date'] = Utility.convert_to_datetime(staging_df['delivery_date'])
+        staging_df['order_date'] = Utility.convert_to_datetime(staging_df['order_date'])
+        staging_df['dispatched_date'] = Utility.convert_to_datetime(staging_df['dispatched_date'])
+        return staging_df
+
+def get_correct_timings(staging_df:pd.DataFrame) -> pd.DataFrame:
+        """
+        Returns rows that satisfy: ORDER DATE < DISPATCH DATE < DELIVERY DATE.
+        """
+        correct_timing_order_dispatched = staging_df['order_date'] < staging_df['dispatched_date'] 
+        correct_timing_dispatched_delivered = staging_df['dispatched_date'] < staging_df['delivery_date']
+        is_null = (staging_df['delivery_date'].isnull()) | (staging_df['dispatched_date'].isnull())
+
+        timing_filter = correct_timing_dispatched_delivered | correct_timing_order_dispatched | is_null
+
+        staging_df = staging_df[timing_filter]
+        
         return staging_df
