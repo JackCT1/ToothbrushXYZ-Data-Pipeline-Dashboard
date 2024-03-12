@@ -4,7 +4,7 @@
 
 ## Data Pipeline
 
-![Architecture](https://raw.githubusercontent.com/JackCT1/ToothburshXYZ-ETL-Pipeline/main/pipeline-architecture.png)
+![Architecture](https://raw.githubusercontent.com/JackCT1/ToothbrushXYZ-ETL-Pipeline/main/pipeline-architecture.png)
 
 
 ## Setup: Docker
